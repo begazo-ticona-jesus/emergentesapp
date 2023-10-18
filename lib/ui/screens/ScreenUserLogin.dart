@@ -2,117 +2,146 @@ import 'package:emergentesapp/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../widtgets/CustomTextField.dart';
-
 class ScreenLogin extends StatefulWidget {
   const ScreenLogin({super.key});
 
   @override
-  _ScreenLoginState createState() => _ScreenLoginState();
+  State<ScreenLogin> createState() => _LoginPageState();
 }
 
-class _ScreenLoginState extends State<ScreenLogin> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  bool isEmailSelected = false;
-  bool isPasswordSelected = false;
-  bool showError = false;
-  bool isLoading = false;
-  bool passView = false;
+class _LoginPageState extends State<ScreenLogin> {
+  final _formKey = GlobalKey<FormState>();
+  String email = '';
+  String password = '';
+  bool showProgress = false;
+  String messageError = '';
 
-  void userLogin() {
-    String email = emailController.text;
-    String password = passwordController.text;
+  void _submitForm() {
+    final isValid = _formKey.currentState!.validate();
 
-    if (checkValues(email, password)) {
-      Future.delayed(const Duration(seconds: 2), () {
-        print('object......................................................');
-        //context.go('/initial');
-      });
+    if (isValid) {
+
       setState(() {
-        isLoading = true;
+        showProgress = true;
       });
 
-    } else {
       setState(() {
-        showError = true;
+        showProgress = false;
       });
+
     }
-  }
-
-  bool checkValues(String email, String password) {
-    return email.isNotEmpty && password.isNotEmpty;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CustomTextField(
-              controller: emailController,
-              keyboardType: TextInputType.emailAddress,
-              textInputAction: TextInputAction.next,
-              labelText: "Correo electrónico",
-              isEmailField: true,
-              isFieldSelected: isEmailSelected,
-              onChanged: (value) {
-                setState(() {
-                  isEmailSelected = true;
-                });
-              },
-              suffixIcon: Icons.email,
-            ),
-
-            CustomTextField(
-              controller: passwordController,
-              keyboardType: TextInputType.text,
-              textInputAction: TextInputAction.next,
-              labelText: "Contraseña",
-              isObscure: !passView,
-              isFieldSelected: isPasswordSelected,
-              onChanged: (value) {
-                setState(() {
-                  isPasswordSelected = true;
-                });
-              },
-              suffixIcon: passView ? Icons.visibility_off : Icons.visibility,
-            ),
-
-            ElevatedButton(
-              //onPressed: userLogin,
-              onPressed: () => context.go('/initial'),
-              style: ElevatedButton.styleFrom(
-                elevation: 0,
-                backgroundColor: Colors.black,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              child: const Row(
-                mainAxisSize: MainAxisSize.min,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children:[
+          SafeArea(
+            child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    "INGRESAR",
+                  const Text(
+                    "Iniciar sesión",
                     style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
-                  Icon(
-                    Icons.arrow_forward,
-                    color: Colors.white,
+                  const SizedBox(height: 20),
+                  // Tu logotipo aquí
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, ingresa tu correo electrónico';
+                      }
+                      // Validación de formato de correo electrónico
+                      final emailRegex =
+                      RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                      if (!emailRegex.hasMatch(value)) {
+                        return 'Correo electrónico inválido';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                      labelText: 'Email',
+                      labelStyle: TextStyle(
+                        color: Colors.black
+                      )
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        email = value;
+                      });
+                    },
                   ),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    obscureText: true,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, ingresa una contraseña';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                      labelText: 'Contraseña',
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        password = value;
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                    ),
+                    onPressed: () {
+                      FocusScope.of(context).unfocus();
+                      _submitForm();
+                    },
+                    child: const Text("Iniciar Sesión"),
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    '¿No tienes una cuenta?',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16.0,
+                    ),
+                  ),
+                  const SizedBox(height: 1),
+                  TextButton(
+                    onPressed: () {
+
+                    },
+                    child: const Text(
+                      'Regístrate aquí',
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.cyanAccent
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        )],
       ),
     );
   }

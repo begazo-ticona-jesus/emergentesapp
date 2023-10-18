@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widtgets/NavBar.dart';
+import '../components/NavBar.dart';
 
 class InitialApp extends StatefulWidget {
   const InitialApp({super.key});
