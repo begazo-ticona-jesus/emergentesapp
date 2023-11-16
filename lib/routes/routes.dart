@@ -14,7 +14,7 @@ final GoRouter goRouter = GoRouter(
     GoRoute(
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
-        return const ScreenLogin();
+        return const InitialApp();
       },
       routes: <RouteBase>[
         GoRoute(
