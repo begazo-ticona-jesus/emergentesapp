@@ -118,19 +118,3 @@ class _ScreenHomeState extends State<ScreenHome> {
     return formatter.format(time);
   }
 }
-
-
-
-/**
-              child: ListTile(
-                title: Row(
-                  children: [
-                    const Icon(Icons.access_time),
-                    const SizedBox(width: 8),
-                    const Text("Registro"),
-                    const Spacer(), // Agrega espacio flexible para empujar la hora a la derecha
-                    Text(_getCurrentTime()),
-                  ],
-                ),
-              ),
- */

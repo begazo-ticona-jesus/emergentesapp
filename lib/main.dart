@@ -11,11 +11,6 @@ void main() {
     ),
   );
 }
-/*
-void main() {
-  runApp(const MyApp());
-}
- */
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -50,51 +45,3 @@ class MyAppScaffold extends StatelessWidget {
     );
   }
 }
-
-/*
-
-class MyAppScaffold extends StatelessWidget {
-  const MyAppScaffold({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/Fondo1.jpg'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: MaterialApp.router(
-          routerConfig: goRouter,
-        ),
-      ),
-    );
-  }
-}
-
-
-
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/Fondo1.jpg'),
-            fit: BoxFit.cover, // Ajusta la imagen al tamaño del contenedor
-          ),
-        ),
-        child: MaterialApp.router(
-          routerConfig: goRouter,
-        ),//const NavBar()
-      ),
-    );
-  }
-}
- */

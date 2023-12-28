@@ -22,8 +22,6 @@ class _ScreenOptionsState extends State<ScreenOptions> {
   String receivedMessage = 'Mensaje recibido: ';
   bool isConnected = false;
 
-  bool _isSwitched = false;
-
   @override
   void initState() {
     connect().then((value) {
@@ -125,10 +123,10 @@ class _ScreenOptionsState extends State<ScreenOptions> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              padding: EdgeInsets.all(0),
+              padding: const EdgeInsets.all(0),
               child: 
               Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 //color: Colors.black.withOpacity(0.5), // Ajusta la opacidad según tus necesidades
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
