@@ -1,25 +1,46 @@
 import 'package:emergentesapp/routes/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import './components/stateSwitched.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => StateWitched(),
+      child: const MyApp(),
+    ),
+  );
 }
+
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Container(
-        decoration: const BoxDecoration(
+    return const MaterialApp(
+      home: MyAppScaffold(),
+    );
+  }
+}
+
+class MyAppScaffold extends StatelessWidget {
+  const MyAppScaffold({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/bg-iot.webp'),
-            fit: BoxFit.cover, // Ajusta la imagen al tamaño del contenedor
+            image: context.watch<StateWitched>().isSwitched
+                ? const AssetImage('assets/Fondo2.jpg')
+                : const AssetImage('assets/Fondo1.jpg'),
+            fit: BoxFit.cover,
           ),
         ),
         child: MaterialApp.router(
           routerConfig: goRouter,
-        ),//const NavBar()
+        ),
       ),
     );
   }
