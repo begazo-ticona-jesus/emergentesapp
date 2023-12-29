@@ -1,11 +1,10 @@
 // ignore_for_file: file_names
 
-import 'package:emergentesapp/ui/screens/ScreenAccount.dart';
+import 'package:emergentesapp/presentation/screens/account/ScreenAccount.dart';
+import 'package:emergentesapp/presentation/screens/home/ScreenHome.dart';
+import 'package:emergentesapp/presentation/screens/listRegisters/ScreenListRegisters.dart';
 import 'package:flutter/material.dart';
 
-import '../ui/screens/ScreenHome.dart';
-import '../ui/screens/ScreenListRegisters.dart';
-import '../ui/screens/ScreenOptions.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
@@ -19,7 +18,6 @@ class _NavBarState extends State<NavBar> {
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
     ScreenHome(),
-    ScreenOptions(),
     ScreenRegisters(),
     ScreenAccount(),
   ];
@@ -42,25 +40,18 @@ class _NavBarState extends State<NavBar> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-            backgroundColor: Color(0xFF343764),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Options',
-            backgroundColor: Color(0xFF343764),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
             label: 'Registers',
-            backgroundColor: Color(0xFF343764),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
             label: 'Account',
-            backgroundColor: Color(0xFF343764),
           ),
         ],
         currentIndex: _selectedIndex,
+        backgroundColor: const Color(0xFF343764),
         selectedItemColor: const Color(0xFFebebf2),
         onTap: _onItemTapped,
       ),

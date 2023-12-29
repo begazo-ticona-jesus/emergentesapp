@@ -1,12 +1,10 @@
-import 'package:emergentesapp/ui/InitialApp.dart';
-import 'package:emergentesapp/ui/screens/ScreenHome.dart';
-import 'package:emergentesapp/ui/screens/ScreenOptions.dart';
+import 'package:emergentesapp/presentation/screens/account/ScreenAccount.dart';
+import 'package:emergentesapp/presentation/screens/home/ScreenHome.dart';
+import 'package:emergentesapp/presentation/screens/userRegister/ScreenUserRegister.dart';
+import 'package:emergentesapp/presentation/InitialApp.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../ui/screens/ScreenAccount.dart';
-//import '../ui/screens/ScreenUserLogin.dart';
-import '../ui/screens/ScreenUserRegister.dart';
 
 
 final GoRouter goRouter = GoRouter(
@@ -33,12 +31,6 @@ final GoRouter goRouter = GoRouter(
           path: 'home',
           builder: (BuildContext context, GoRouterState state) {
             return const ScreenHome();
-          },
-        ),
-        GoRoute(
-          path: 'options',
-          builder: (BuildContext context, GoRouterState state) {
-            return const ScreenOptions();
           },
         ),
         GoRoute(

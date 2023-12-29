@@ -1,7 +1,7 @@
-import 'package:emergentesapp/routes/routes.dart';
+import 'package:emergentesapp/presentation/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import './components/stateSwitched.dart';
+import 'presentation/components/stateSwitched.dart';
 
 void main() {
   runApp(
