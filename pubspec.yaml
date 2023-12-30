@@ -34,6 +34,7 @@ dependencies:
   go_router: ^10.1.2
   mqtt_client: ^10.0.0
   provider: ^6.1.1
+  fl_chart: ^0.66.0
 
   #provider
   #riverpod_annotation: ^2.1.5

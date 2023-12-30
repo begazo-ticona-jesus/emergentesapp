@@ -1,4 +1,5 @@
 // ignore_for_file: file_names
+import 'package:emergentesapp/presentation/screens/listRegisters/widgets/LineChart.dart';
 import 'package:flutter/material.dart';
 
 class ScreenRegisters extends StatefulWidget {
@@ -11,8 +12,7 @@ class ScreenRegisters extends StatefulWidget {
 
 class _ScreenRegistersState extends State<ScreenRegisters> {
   final PageController _pageController = PageController();
-  List<String> registros =
-      List.generate(100, (index) => 'Registro ${index + 1}');
+  List<String> registros = List.generate(100, (index) => 'Registro ${index + 1}');
   int elementosPorPagina = 10;
 
   @override
@@ -24,12 +24,21 @@ class _ScreenRegistersState extends State<ScreenRegisters> {
           child: Text(
             'Listado de registros',
             style: TextStyle(
-              fontSize: 24.0,
+              fontSize: 30.0,
               fontWeight: FontWeight.bold,
               color: Color.fromARGB(255, 255, 255, 255),
+              shadows: [
+                Shadow(
+                  color: Color(0xFF343764),
+                  offset: Offset(2.0, 2.0),
+                  blurRadius: 3.0,
+                ),
+              ],
             ),
           ),
         ),
+
+        const LineChartSample(data: ["alto","medio", "medio", "alto","medio", "bajo","alto","medio", "bajo","alto","medio", "bajo"],),
 
         Expanded(
           child: PageView.builder(
