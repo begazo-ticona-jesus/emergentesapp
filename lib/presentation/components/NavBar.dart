@@ -53,6 +53,7 @@ class _NavBarState extends State<NavBar> {
         currentIndex: _selectedIndex,
         backgroundColor: const Color(0xFF343764),
         selectedItemColor: const Color(0xFFebebf2),
+        unselectedItemColor: const Color(0xFF797dba),
         onTap: _onItemTapped,
       ),
     );

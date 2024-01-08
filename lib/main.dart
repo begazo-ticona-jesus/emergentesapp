@@ -30,11 +30,12 @@ class MyAppScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
-            image: context.watch<StateWitched>().isSwitched
-                ? const AssetImage('assets/Fondo2.jpg')
-                : const AssetImage('assets/Fondo1.jpg'),
+            image: AssetImage('assets/Fondo2.jpg'),
+            //image: context.watch<StateWitched>().isSwitched
+             //   ? const AssetImage('assets/Fondo2.jpg')
+              //  : const AssetImage('assets/Fondo1.jpg'),
             fit: BoxFit.cover,
           ),
         ),

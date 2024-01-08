@@ -95,19 +95,19 @@ class LineChartSample extends StatelessWidget {
     IconData iconData;
     switch (value.toInt()) {
       case 1:
-        iconData = Icons.wb_sunny_outlined; // Cambia el icono según tus preferencias
+        iconData = Icons.wb_sunny_outlined;
         break;
       case 2:
         iconData = Icons.sunny_snowing;
         break;
       case 3:
-        iconData = Icons.sunny; // Puedes cambiarlo a otro icono
+        iconData = Icons.sunny;
         break;
       default:
         return Container();
     }
 
-    return Icon(iconData, size: 30, color: const Color(0xFF343764)); // Puedes ajustar el tamaño y color del icono según tus preferencias
+    return Icon(iconData, size: 30, color: const Color(0xFF343764));
   }
 
 }

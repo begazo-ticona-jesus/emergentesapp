@@ -7,7 +7,6 @@ import 'package:mqtt_client/mqtt_server_client.dart';
 
 import '../../../domain/services/mqtt/MqttController.dart';
 
-
 class ScreenHome extends StatefulWidget {
   const ScreenHome({Key? key}) : super(key: key);
 
@@ -51,35 +50,34 @@ class _ScreenHomeState extends State<ScreenHome> {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Padding(
-            padding: EdgeInsets.only(top: 70.0,bottom: 10.0),
+            padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
             child: Text(
-              'Opciones de control',
+              'Sistema de Control',
               style: TextStyle(
                 fontSize: 30.0,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w300,
                 color: Colors.white,
-                shadows: [
-                  Shadow(
-                    color: Color(0xFF343764),
-                    offset: Offset(2.0, 2.0),
-                    blurRadius: 3.0,
-                  ),
-                ],
+                //shadows: [ Shadow( color: Color(0xFF343764), offset: Offset(2.0, 2.0), blurRadius: 3.0, ),],
               ),
             ),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CustomSwitchTheme(),
-              SwitchIcon(
-                isSwitched: isSwitched,
-                onChanged: _changeSwitch,
-              ),
+              //CustomSwitchTheme(),
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.only(top: 50),
+                child: SwitchIcon(
+                  isSwitched: isSwitched,
+                  onChanged: _changeSwitch,
+                ),
+              ),
+              
+              Padding(
+                padding: const EdgeInsets.only(right: 50.0, left: 50.0, top: 35),
                 child: SliderIntensity( // Usa el widget del slider de intensidad
                   intensity: _intensity,
                   onChanged: (double value) {
@@ -89,8 +87,9 @@ class _ScreenHomeState extends State<ScreenHome> {
                   },
                 ),
               ),
+
               Padding(
-                padding: const EdgeInsets.only(right: 50.0, left: 50.0, top: 10),
+                padding: const EdgeInsets.only(right: 50.0, left: 50.0, top: 25),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -103,15 +102,19 @@ class _ScreenHomeState extends State<ScreenHome> {
                       onPressed: mqttController == null ? null : () {
                         publishToTopic(mqttController!, 'TOPIC_RONY', 'apaga tu foco');
                       },
+                      
                       label: const Text(
                         'Enviar',
                         style: TextStyle(
-                          color: Colors.white, // Cambia el color del texto según tus preferencias
+                          color: Color(0xFF343764)
                         ),
                       ),
-                      icon: const Icon(Icons.send, color: Colors.white,), // Cambia el icono según tus preferencias
+                      icon: const Icon(
+                        Icons.send, 
+                        color: Color(0xFF343764),),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFa4acf4),
+                        padding: const EdgeInsets.only(right: 25, left: 25),
+                        backgroundColor: Colors.white,
                       ),
                     ),
                   ],

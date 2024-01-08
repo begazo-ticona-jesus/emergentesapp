@@ -40,8 +40,8 @@ class SwitchState extends State<CustomSwitchTheme> {
                 appState.listOfActions.add(newAction);
               }
             },
-            activeTrackColor: const Color(0xFFdb99b0),
-            activeColor: Colors.pink,
+            activeTrackColor: Color.fromARGB(255, 248, 205, 220),
+            activeColor: Color(0xFFdb99b0),
           ),
         ],
       ),
