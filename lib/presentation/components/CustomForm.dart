@@ -1,6 +1,5 @@
 // custom_form.dart
 
-
 // ignore_for_file: must_be_immutable, file_names, use_super_parameters
 
 import 'package:flutter/material.dart';
@@ -36,33 +35,41 @@ class CustomForm extends StatelessWidget {
   }
 
   Widget buildEmail() {
-    return TextFormField(
-      controller: emailController,
-      decoration: InputDecoration(
-        labelText: "Correo",
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Colors.black),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 40.0), // Ajusta los valores según tus necesidades
+      child: TextFormField(
+        controller: emailController,
+        decoration: InputDecoration(
+          labelText: "Correo",
+          contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(color: Colors.black),
+          ),
         ),
+        keyboardType: TextInputType.emailAddress,
+        onSaved: (String? value) {
+          onEmailSaved(value!);
+        },
+        validator: (value) {
+          if (value!.isEmpty) {
+            return "Este campo es obligatorio";
+          }
+          return null;
+        },
       ),
-      keyboardType: TextInputType.emailAddress,
-      onSaved: (String? value) {
-        onEmailSaved(value!);
-      },
-      validator: (value) {
-        if (value!.isEmpty) {
-          return "Este campo es obligatorio";
-        }
-        return null;
-      },
     );
   }
 
   Widget buildPassword() {
-    return TextFormField(
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 40.0), // Ajusta los valores según tus necesidades
+      child: TextFormField(
       controller: passwordController,
       decoration: InputDecoration(
           labelText: "Password",
+          contentPadding:
+              EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: const BorderSide(color: Colors.black))),
@@ -76,6 +83,7 @@ class CustomForm extends StatelessWidget {
       onSaved: (String? value) {
         onPasswordSaved(value!);
       },
+    ),
     );
   }
 }

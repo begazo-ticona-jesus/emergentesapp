@@ -2,153 +2,153 @@
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:emergentesapp/presentation/components/CustomForm.dart';
 
-class ScreenRegister extends StatefulWidget{
+class ScreenRegister extends StatefulWidget {
   const ScreenRegister({super.key});
 
   @override
   State<ScreenRegister> createState() => _RegisterState();
 }
 
-
 class _RegisterState extends State<ScreenRegister> {
-  late String email, password;
-  final _formKey = GlobalKey<FormState>();
   String error = '';
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  String _email = '';
+  String _password = '';
 
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text(
-                "Register Page",
-                style: TextStyle(color: Colors.black, fontSize: 24),
-              ),
-            ),
-            Offstage(
-              offstage: error == '',
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(error, style: TextStyle(color: Colors.red, fontSize: 16),),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: formulario(),
-            ),
-            butonCreate(),
-          ]),
-    );
-  }
-
-  Widget formulario() {
-    return Form(
-        key: _formKey,
+      body: SingleChildScrollView(
         child: Column(
-          children: [
-            buildEmail(),
-            const Padding(padding: EdgeInsets.only(top: 12)),
-            buildPassword(),
-          ],
-        ));
-  }
-
-  Widget buildEmail() {
-    return TextFormField(
-      decoration: InputDecoration(
-          labelText: "Correo",
-          border: OutlineInputBorder(
-              // ignore: unnecessary_new
-              borderRadius: new BorderRadius.circular(8),
-              borderSide: new BorderSide(color: Colors.black))),
-      keyboardType: TextInputType.emailAddress,
-      onSaved: (String? value) {
-        email = value!;
-      },
-      validator: (value) {
-        if (value!.isEmpty) {
-          return "Este campo es obligatorio";
-        }
-        return null;
-      },
-    );
-  }
-
-  Widget buildPassword() {
-    return TextFormField(
-      decoration: InputDecoration(
-          labelText: "Password",
-          border: OutlineInputBorder(
-              borderRadius: new BorderRadius.circular(8),
-              borderSide: new BorderSide(color: Colors.black))),
-      obscureText: true,
-      validator: (value) {
-        if (value!.isEmpty) {
-          return "Este campo es obligatorio";
-        }
-        return null;
-      },
-      onSaved: (String? value) {
-        password = value!;
-      },
-    );
-  }
-
-  Widget butonCreate() {
-    return FractionallySizedBox(
-      widthFactor: 0.6,
-      child: ElevatedButton(
-          onPressed: () async{
-
-            if(_formKey.currentState!.validate()){
-              _formKey.currentState!.save();
-              UserCredential? credenciales = await crear(email, password);
-              if(credenciales !=null){
-                if(credenciales.user != null){
-                  await credenciales.user!.sendEmailVerification();
-                  Navigator.of(context).pop();
-                }
-              }
-            }
-          },
-          child: Text("Registrarse")
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                padding: EdgeInsets.only(top: 150.0),
+                child: Image.asset(
+                  'assets/login2.png',
+                  height: 250,
+                  width: 250,
+                  fit: BoxFit.contain,
+                ),
+              ),
+              const Text(
+                'Hello',
+                style: TextStyle(
+                  fontSize: 50,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 5.0, bottom: 10.0),
+                child: Text(
+                  'Welcome to Gleam & Glow \nwhere you can control the light in your home',
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w300,
+                    color: Colors.black,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Offstage(
+                offstage: error == '',
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    error,
+                    style: TextStyle(color: Colors.red, fontSize: 16),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: CustomForm(
+                  formKey: _formKey,
+                  emailController: _emailController,
+                  passwordController: _passwordController,
+                  onEmailSaved: (value) {
+                    setState(() {
+                      _email = value;
+                    });
+                  },
+                  onPasswordSaved: (value) {
+                    setState(() {
+                      _password = value;
+                    });
+                  },
+                ),
+              ),
+              ElevatedButton(
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                      UserCredential? credenciales =
+                          await crear(_email, _password);
+                      if (credenciales != null) {
+                        if (credenciales.user != null) {
+                          await credenciales.user!.sendEmailVerification();
+                          Navigator.of(context).pop();
+                        }
+                      }
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 60.0, vertical: 10.0),
+                    backgroundColor: Color(0xFF343764),
+                  ),
+                  child: Text(
+                    "Registrarse",
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  )),
+            ]),
       ),
     );
   }
 
   Future<UserCredential?> crear(String email, String passwd) async {
-    try{
-      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email,
-          password: password);
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: _email, password: _password);
       return userCredential;
-    } on FirebaseAuthException catch(e){
-      if(e.code == 'email-already-in-use'){
-        //todo correo en uso
+    } on FirebaseAuthException catch (e) {
+      if (isValidEmail(_email)) {
+        if (e.code == 'email-already-in-use') {
+          //todo correo en uso
+          setState(() {
+            error = "El correo ya se encuentra en uso";
+          });
+        }
+        if (e.code == 'weak-password') {
+          //todo contrasena muy debil
+          setState(() {
+            error = "contrasenna debil";
+          });
+        }
+      } else {
         setState(() {
-          error = "El correo ya se encuentra en uso";
-        });
+            error = "Email invalido";
+          });
       }
-      if(e.code == 'weak-password'){
-        //todo contrasenna muy debil
-        setState(() {
-          error = "contrasenna debil";
-        });
-      }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
     }
     return null;
   }
 
-
   bool isValidEmail(String email) {
     final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
     return emailRegex.hasMatch(email);
   }
-
 }
