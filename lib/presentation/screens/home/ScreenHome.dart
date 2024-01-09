@@ -3,10 +3,10 @@ import 'package:emergentesapp/presentation/screens/home/widgets/SliderIntensity.
 import 'package:emergentesapp/presentation/screens/home/widgets/SwitchIcon.dart';
 import 'package:emergentesapp/presentation/screens/home/widgets/SwitchTeme.dart';
 import 'package:flutter/material.dart';
+import 'package:sensors_plus/sensors_plus.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 
 import '../../../domain/services/mqtt/MqttController.dart';
-
 
 class ScreenHome extends StatefulWidget {
   const ScreenHome({Key? key}) : super(key: key);
@@ -21,16 +21,39 @@ class _ScreenHomeState extends State<ScreenHome> {
   MqttServerClient? mqttController;
   bool isConnected = false;
   double _intensity = 0.5;
+  bool isShakeEnabled = false;
 
   @override
   void initState() {
+    super.initState();
     connect().then((value) {
       setState(() {
         mqttController = value;
         isConnected = true;
       });
     });
-    super.initState();
+    _startShakeDetection();
+  }
+
+  void toggleShake() {
+    setState(() {
+      isShakeEnabled = !isShakeEnabled;
+    });
+  }
+
+  void _startShakeDetection() {
+    accelerometerEventStream().listen((AccelerometerEvent event) {
+      double x = event.x;
+      double y = event.y;
+      double z = event.z;
+      double rango = 30;
+      bool agitacionEnRango = (x > rango || x < -rango || y > rango || y < -rango || z > rango || z < -rango);
+
+      if (isShakeEnabled && agitacionEnRango) {
+        print('Shake detected!');
+        // Code to shake the screen
+      }
+    });
   }
 
   @override
@@ -53,7 +76,7 @@ class _ScreenHomeState extends State<ScreenHome> {
       child: Column(
         children: [
           const Padding(
-            padding: EdgeInsets.only(top: 70.0,bottom: 10.0),
+            padding: EdgeInsets.only(top: 70.0, bottom: 10.0),
             child: Text(
               'Opciones de control',
               style: TextStyle(
@@ -80,7 +103,8 @@ class _ScreenHomeState extends State<ScreenHome> {
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: SliderIntensity( // Usa el widget del slider de intensidad
+                child: SliderIntensity(
+                  // Usa el widget del slider de intensidad
                   intensity: _intensity,
                   onChanged: (double value) {
                     setState(() {
@@ -90,26 +114,36 @@ class _ScreenHomeState extends State<ScreenHome> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 50.0, left: 50.0, top: 10),
+                padding:
+                    const EdgeInsets.only(right: 50.0, left: 50.0, top: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CheckboxCommon(isManual: isManual, onChanged: (bool? value) {
-                      setState(() {
-                        isManual = value!;
-                      });
-                    }),
+                    CheckboxCommon(
+                        isManual: isManual,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            isManual = value!;
+                          });
+                        }),
                     ElevatedButton.icon(
-                      onPressed: mqttController == null ? null : () {
-                        publishToTopic(mqttController!, 'TOPIC_RONY', 'apaga tu foco');
-                      },
+                      onPressed: mqttController == null
+                          ? null
+                          : () {
+                              publishToTopic(mqttController!, 'TOPIC_RONY',
+                                  'apaga tu foco');
+                            },
                       label: const Text(
                         'Enviar',
                         style: TextStyle(
-                          color: Colors.white, // Cambia el color del texto según tus preferencias
+                          color: Colors
+                              .white, // Cambia el color del texto según tus preferencias
                         ),
                       ),
-                      icon: const Icon(Icons.send, color: Colors.white,), // Cambia el icono según tus preferencias
+                      icon: const Icon(
+                        Icons.send,
+                        color: Colors.white,
+                      ), // Cambia el icono según tus preferencias
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFa4acf4),
                       ),
