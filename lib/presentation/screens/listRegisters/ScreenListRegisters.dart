@@ -1,4 +1,6 @@
-// ignore_for_file: file_names, use_super_parameters
+// ignore_for_file: file_names
+import 'package:emergentesapp/domain/models/dataModel.dart';
+import 'package:emergentesapp/infraestructure/repository/dynamoRepository.dart';
 import 'package:emergentesapp/presentation/screens/listRegisters/widgets/LineChart.dart';
 import 'package:flutter/material.dart';
 
@@ -12,8 +14,27 @@ class ScreenRegisters extends StatefulWidget {
 
 class _ScreenRegistersState extends State<ScreenRegisters> {
   final PageController _pageController = PageController();
-  List<String> registros = List.generate(100, (index) => 'Registro ${index + 1}');
+  List<DataModel> registros = [];
   int elementosPorPagina = 10;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    try {
+      final dataRepository = DynamoRepositoryImpl(); // Puedes inyectar esto desde fuera según tus necesidades
+      final List<DataModel> fetchedData = await dataRepository.getDataList();
+
+      setState(() {
+        registros = fetchedData;
+      });
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,19 +64,21 @@ class _ScreenRegistersState extends State<ScreenRegisters> {
               int endIndex = (pageIndex + 1) * elementosPorPagina;
               endIndex = endIndex > registros.length ? registros.length : endIndex;
 
-              List<String> registrosPagina = registros.sublist(startIndex, endIndex);
+              List<DataModel> registrosPagina = registros.sublist(startIndex, endIndex);
 
               return ListView(
-                children: registrosPagina.map((registro) => Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0), // Ajusta este valor para hacer más ovaladas las tarjetas
-                      ),
-                      color: const Color.fromARGB(255, 255, 255, 255),
-                      child: ListTile(title: Text(registro)),
+                children: registrosPagina.map((data) => Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
                     ),
-                  )).toList(),
+                    color: const Color.fromARGB(255, 255, 255, 255),
+                    child: ListTile(
+                      title: Text('Movimiento: ${data.motion}, Luz: ${data.light}'),
+                    ),
+                  ),
+                )).toList(),
               );
             },
           ),
