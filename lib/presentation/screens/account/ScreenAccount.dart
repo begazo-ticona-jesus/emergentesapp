@@ -1,10 +1,15 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, use_build_context_synchronously, library_prefixes, use_super_parameters, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import '../../components/Actions.dart' as MyActions;
 import '../../components/stateActions.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:emergentesapp/presentation/screens/userLogin/ScreenLogin.dart';
+
 
 class ScreenAccount extends StatefulWidget {
   const ScreenAccount({Key? key}) : super(key: key);
@@ -91,7 +96,7 @@ class _ScreenAccountState extends State<ScreenAccount> {
                           margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
                           child: Text(
                               _getCurrentTime(listOfActions[index].time),
-                              style: TextStyle(fontSize: 15),
+                              style: const TextStyle(fontSize: 15),
                               
                             ),
                         )
@@ -101,6 +106,25 @@ class _ScreenAccountState extends State<ScreenAccount> {
                   },
                 )),
           ),
+
+          ElevatedButton(
+            onPressed: () async {
+              await GoogleSignIn().signOut(); // Cerrar sesión de Google
+              await FirebaseAuth.instance.signOut(); // Cerrar sesión de Firebase
+
+              // Navegar de regreso a la pantalla de inicio de sesión
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const ScreenLogin()),
+                (route) => false,
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+            ),
+            child: const Text('Sing Out'),
+          )
+
         ],
       ),
     );

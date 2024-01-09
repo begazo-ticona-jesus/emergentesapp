@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, use_super_parameters
 import 'package:emergentesapp/presentation/screens/listRegisters/widgets/LineChart.dart';
 import 'package:flutter/material.dart';
 

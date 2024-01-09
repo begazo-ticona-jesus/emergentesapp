@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, library_prefixes
+
 import 'package:flutter/material.dart';
 
 import '../../../components/stateSwitched.dart';
