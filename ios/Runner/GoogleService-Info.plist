@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>195409846717-4jretogmo5f6u3qkua145l4gblifqurl.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.195409846717-4jretogmo5f6u3qkua145l4gblifqurl</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>195409846717-v2rmfb46ntthavb2sqnbp6ntm56u00st.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyByr8kIbz8q8lt0UZTTXNwfunC3Dbu7YUI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>195409846717</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.emergentesapp</string>
+	<key>PROJECT_ID</key>
+	<string>pemergentes-fa3ae</string>
+	<key>STORAGE_BUCKET</key>
+	<string>pemergentes-fa3ae.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:195409846717:ios:3aebc9f1bef3030919b2d4</string>
+</dict>
+</plist>

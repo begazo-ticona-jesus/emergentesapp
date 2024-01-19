@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "195409846717",
+    "project_id": "pemergentes-fa3ae",
+    "storage_bucket": "pemergentes-fa3ae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:195409846717:android:8664026eae16de7219b2d4",
+        "android_client_info": {
+          "package_name": "com.example.emergentesapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "195409846717-2bhp64hh1upo72mjdg11mbscjvkosj80.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.emergentesapp",
+            "certificate_hash": "bc7542c3f75cea62d7befbbb2479827292238f68"
+          }
+        },
+        {
+          "client_id": "195409846717-v2rmfb46ntthavb2sqnbp6ntm56u00st.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.emergentesapp",
+            "certificate_hash": "8d9d3bc7e5459544a11bcb81a6c5722e7d78d532"
+          }
+        },
+        {
+          "client_id": "195409846717-qbehi87i6d4olj0v94g6i6i6e2k1t6ei.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBV3U4F4_fW5Tup-vSzFidK2Gi3SzvlKzc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "195409846717-qbehi87i6d4olj0v94g6i6i6e2k1t6ei.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "195409846717-4jretogmo5f6u3qkua145l4gblifqurl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.emergentesapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

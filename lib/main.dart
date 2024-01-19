@@ -1,9 +1,24 @@
+// ignore_for_file: avoid_print, use_super_parameters
+
+import 'package:firebase_core/firebase_core.dart';
+
 import 'package:emergentesapp/presentation/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'presentation/components/stateSwitched.dart';
 
-void main() {
+import 'package:emergentesapp/presentation/screens/userLogin/ScreenLogin.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  try {
+    await Firebase.initializeApp();
+    ("Firebase inicializado correctamente.");
+  } catch (e) {
+    print("Error al inicializar Firebase: $e");
+  }
+
   runApp(
     ChangeNotifierProvider(
       create: (context) => StateWitched(),
@@ -18,7 +33,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: MyAppScaffold(),
+      home: ScreenLogin(),
     );
   }
 }
@@ -30,11 +45,12 @@ class MyAppScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
-            image: context.watch<StateWitched>().isSwitched
-                ? const AssetImage('assets/Fondo2.jpg')
-                : const AssetImage('assets/Fondo1.jpg'),
+            image: AssetImage('assets/Fondo2.jpg'),
+            //image: context.watch<StateWitched>().isSwitched
+            //   ? const AssetImage('assets/Fondo2.jpg')
+            //  : const AssetImage('assets/Fondo1.jpg'),
             fit: BoxFit.cover,
           ),
         ),

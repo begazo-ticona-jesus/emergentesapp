@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, library_prefixes, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -40,8 +42,8 @@ class SwitchState extends State<CustomSwitchTheme> {
                 appState.listOfActions.add(newAction);
               }
             },
-            activeTrackColor: const Color(0xFFdb99b0),
-            activeColor: Colors.pink,
+            activeTrackColor: const Color.fromARGB(255, 248, 205, 220),
+            activeColor: const Color(0xFFdb99b0),
           ),
         ],
       ),

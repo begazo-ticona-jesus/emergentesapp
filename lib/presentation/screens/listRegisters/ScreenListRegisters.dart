@@ -45,17 +45,11 @@ class _ScreenRegistersState extends State<ScreenRegisters> {
           child: Text(
             'Listado de registros',
             style: TextStyle(
-              fontSize: 30.0,
-              fontWeight: FontWeight.bold,
-              color: Color.fromARGB(255, 255, 255, 255),
-              shadows: [
-                Shadow(
-                  color: Color(0xFF343764),
-                  offset: Offset(2.0, 2.0),
-                  blurRadius: 3.0,
-                ),
-              ],
-            ),
+                fontSize: 30.0,
+                fontWeight: FontWeight.w300,
+                color: Colors.white,
+                //shadows: [ Shadow( color: Color(0xFF343764), offset: Offset(2.0, 2.0), blurRadius: 3.0, ),],
+              ),
           ),
         ),
 
@@ -106,9 +100,12 @@ class _ScreenRegistersState extends State<ScreenRegisters> {
                   }
                 },
                 style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFFa4acf4)), // Color de fondo
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.white), // Color de fondo
                 ),
-                child: const Text('Anterior'),
+                child: const Text(
+                  'Anterior',
+                  style: TextStyle(color: Color(0xFF343764)),
+                ),
               ),
               const SizedBox(width: 16),
               ElevatedButton(
@@ -121,9 +118,12 @@ class _ScreenRegistersState extends State<ScreenRegisters> {
                   }
                 },
                 style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFFa4acf4)), // Color de fondo
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.white), // Color de fondo
                 ),
-                child: const Text('Siguiente'),
+                child: const Text(
+                  'Siguiente',
+                  style: TextStyle(color: Color(0xFF343764)),
+                ),
               ),
             ],
           ),

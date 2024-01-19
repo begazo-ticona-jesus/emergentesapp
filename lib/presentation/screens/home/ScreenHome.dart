@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, use_super_parameters, library_private_types_in_public_api
+
 import 'package:emergentesapp/presentation/screens/home/widgets/CheckboxCommon.dart';
 import 'package:emergentesapp/presentation/screens/home/widgets/SliderIntensity.dart';
 import 'package:emergentesapp/presentation/screens/home/widgets/SwitchIcon.dart';
@@ -5,7 +7,6 @@ import 'package:emergentesapp/presentation/screens/home/widgets/SwitchTeme.dart'
 import 'package:flutter/material.dart';
 //import 'package:sensors_plus/sensors_plus.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
-
 import '../../../domain/services/mqtt/MqttController.dart';
 
 class ScreenHome extends StatefulWidget {

@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 class SliderIntensity extends StatelessWidget {
@@ -12,27 +14,27 @@ class SliderIntensity extends StatelessWidget {
       width: 350,
       height: 85,
       decoration: BoxDecoration(
-        color: const Color(0xFF343764), // Establece el color de fondo del slider
-        borderRadius: BorderRadius.circular(13.0), // Ajusta el radio para esquinas redondeadas
+        //color: Colors.white.withOpacity(0.5),
+        borderRadius: BorderRadius.circular(13.0),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
         const Text(
-          "INTENSIDAD",
+          "Nivel de Intensidad",
           style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
+            color: Color(0xFF343764),
+            fontWeight: FontWeight.w500,
             fontSize: 18.0,
           ),
         ),
         SliderTheme(
             data: SliderThemeData(
               trackHeight: 12.0,
-              activeTrackColor: Colors.blue,
-              inactiveTrackColor: Colors.white,
-              thumbColor: Colors.blueAccent,
-              overlayColor: Colors.red.withAlpha(32),
+              activeTrackColor: const Color(0xFF343764),//pista activa
+              inactiveTrackColor: Colors.white,//pista inactiva
+              thumbColor: const Color(0xFF343764),//bolita
+              overlayColor: Colors.white.withAlpha(32),
               thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 12.0),
               overlayShape: const RoundSliderOverlayShape(overlayRadius: 24.0),
             ),
