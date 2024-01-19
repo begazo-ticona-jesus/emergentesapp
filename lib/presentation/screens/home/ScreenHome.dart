@@ -3,7 +3,7 @@ import 'package:emergentesapp/presentation/screens/home/widgets/SliderIntensity.
 import 'package:emergentesapp/presentation/screens/home/widgets/SwitchIcon.dart';
 import 'package:emergentesapp/presentation/screens/home/widgets/SwitchTeme.dart';
 import 'package:flutter/material.dart';
-import 'package:sensors_plus/sensors_plus.dart';
+//import 'package:sensors_plus/sensors_plus.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 
 import '../../../domain/services/mqtt/MqttController.dart';
@@ -32,7 +32,7 @@ class _ScreenHomeState extends State<ScreenHome> {
         isConnected = true;
       });
     });
-    _startShakeDetection();
+    //_startShakeDetection();
   }
 
   void toggleShake() {
@@ -41,7 +41,7 @@ class _ScreenHomeState extends State<ScreenHome> {
     });
   }
 
-  void _startShakeDetection() {
+  /*void _startShakeDetection() {
     accelerometerEventStream().listen((AccelerometerEvent event) {
       double x = event.x;
       double y = event.y;
@@ -54,7 +54,7 @@ class _ScreenHomeState extends State<ScreenHome> {
         // Code to shake the screen
       }
     });
-  }
+  }*/
 
   @override
   void dispose() {
