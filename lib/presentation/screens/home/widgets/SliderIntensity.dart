@@ -14,7 +14,7 @@ class SliderIntensity extends StatelessWidget {
       width: 350,
       height: 85,
       decoration: BoxDecoration(
-        //color: Colors.white.withOpacity(0.5),
+        color: const Color(0xFF343764).withOpacity(0.75),
         borderRadius: BorderRadius.circular(13.0),
       ),
       child: Column(
@@ -23,7 +23,7 @@ class SliderIntensity extends StatelessWidget {
         const Text(
           "Nivel de Intensidad",
           style: TextStyle(
-            color: Color(0xFF343764),
+            color: Colors.white,
             fontWeight: FontWeight.w500,
             fontSize: 18.0,
           ),
@@ -31,9 +31,9 @@ class SliderIntensity extends StatelessWidget {
         SliderTheme(
             data: SliderThemeData(
               trackHeight: 12.0,
-              activeTrackColor: const Color(0xFF343764),//pista activa
+              activeTrackColor: const Color(0xFFa4acf4),//pista activa
               inactiveTrackColor: Colors.white,//pista inactiva
-              thumbColor: const Color(0xFF343764),//bolita
+              thumbColor: const Color(0xFFa4acf4),//bolita
               overlayColor: Colors.white.withAlpha(32),
               thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 12.0),
               overlayShape: const RoundSliderOverlayShape(overlayRadius: 24.0),

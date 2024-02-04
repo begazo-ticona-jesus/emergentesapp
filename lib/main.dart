@@ -14,7 +14,7 @@ void main() async {
 
   try {
     await Firebase.initializeApp();
-    ("Firebase inicializado correctamente.");
+    print("Firebase inicializado correctamente.");
   } catch (e) {
     print("Error al inicializar Firebase: $e");
   }
@@ -45,12 +45,12 @@ class MyAppScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/Fondo2.jpg'),
-            //image: context.watch<StateWitched>().isSwitched
-            //   ? const AssetImage('assets/Fondo2.jpg')
-            //  : const AssetImage('assets/Fondo1.jpg'),
+            //image: AssetImage('assets/Fondo2.jpg'),
+            image: context.watch<StateWitched>().isSwitched
+                ? const AssetImage('assets/Fondo2.jpg')
+                : const AssetImage('assets/Fondo1.jpg'),
             fit: BoxFit.cover,
           ),
         ),

@@ -2,10 +2,6 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../components/stateSwitched.dart';
-import 'package:provider/provider.dart';
-import '../../../components/Actions.dart' as MyActions;
-import '../../../components/stateActions.dart';
 
 class SwitchIcon extends StatelessWidget {
   final bool isSwitched;
@@ -18,30 +14,17 @@ class SwitchIcon extends StatelessWidget {
     return IconButton(
       icon: Container(
         decoration: BoxDecoration(
-          color:  Colors.transparent,
-          borderRadius: BorderRadius.circular(300),
+          color: const Color(0xFF343764).withOpacity(0.25),
+          borderRadius: BorderRadius.circular(200),
         ),
         child: Icon(
-          isSwitched ? Icons.lightbulb_circle : Icons.lightbulb_circle_outlined,
-          color: isSwitched ? const Color(0xFF343764) : Colors.white,
+          isSwitched ? Icons.lightbulb_circle_outlined : Icons.lightbulb_circle_outlined,
+          color: isSwitched ? Colors.yellow : const Color(0xFF343764),
           size: 250,
         ),
       ),
       onPressed: () {
         onChanged(!isSwitched);
-
-        // Llamar a la función onChanged del Switch cuando se presiona el IconButton
-        context.read<StateWitched>().isSwitched = !context.read<StateWitched>().isSwitched;
-
-        if (context.read<StateWitched>().isSwitched) {
-          // Acción cuando el switch se enciende
-          MyActions.Actions newAction = MyActions.Actions('Foco Encendido', DateTime.now());
-          appState.listOfActions.add(newAction);
-        } else {
-          // Acción cuando el switch se apaga
-          MyActions.Actions newAction = MyActions.Actions('Foco Apagado', DateTime.now());
-          appState.listOfActions.add(newAction);
-        }
       },
     );
   }

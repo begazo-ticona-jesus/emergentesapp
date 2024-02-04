@@ -16,6 +16,7 @@ class _ScreenRegistersState extends State<ScreenRegisters> {
   final PageController _pageController = PageController();
   List<DataModel> registros = [];
   int elementosPorPagina = 10;
+  List<String> dataChart = [];
 
   @override
   void initState() {
@@ -27,12 +28,37 @@ class _ScreenRegistersState extends State<ScreenRegisters> {
     try {
       final dataRepository = DynamoRepositoryImpl(); // Puedes inyectar esto desde fuera según tus necesidades
       final List<DataModel> fetchedData = await dataRepository.getDataList();
+      List<String> dataChartClasificada = fetchedData.map((data) {
+        return clasificarLuz(data.light);
+      }).toList();
 
       setState(() {
         registros = fetchedData;
+        dataChart = dataChartClasificada;
       });
+
     } catch (e) {
       print('Error: $e');
+    }
+  }
+
+  String clasificarLuz(int valor) {
+    if (valor < 300) {
+      return 'bajo';
+    } else if (valor <= 700) {
+      return 'medio';
+    } else {
+      return 'alto';
+    }
+  }
+
+  IconData getIconData(int valor) {
+    if (valor < 300) {
+      return Icons.wb_sunny_outlined;
+    } else if (valor <= 700) {
+      return Icons.sunny_snowing;
+    } else {
+      return Icons.sunny;
     }
   }
 
@@ -48,12 +74,12 @@ class _ScreenRegistersState extends State<ScreenRegisters> {
                 fontSize: 30.0,
                 fontWeight: FontWeight.w300,
                 color: Colors.white,
-                //shadows: [ Shadow( color: Color(0xFF343764), offset: Offset(2.0, 2.0), blurRadius: 3.0, ),],
+                shadows: [ Shadow( color: Color(0xFF343764), offset: Offset(2.0, 2.0), blurRadius: 3.0, ),],
               ),
           ),
         ),
 
-        const LineChartSample(data: ["alto","medio", "medio", "alto","medio", "bajo","alto","medio", "bajo","alto","medio", "bajo"],),
+        LineChartSample(data: dataChart),
 
         Expanded(
           child: PageView.builder(
@@ -75,7 +101,8 @@ class _ScreenRegistersState extends State<ScreenRegisters> {
                     ),
                     color: const Color.fromARGB(255, 255, 255, 255),
                     child: ListTile(
-                      title: Text('Movimiento: ${data.motion}, Luz: ${data.light}'),
+                      title: Text('Movimiento: ${data.motion == 0 ? 'NO' : 'SI '},  \tLuz: ${data.light}'),
+                      trailing: Icon(getIconData(data.light))
                     ),
                   ),
                 )).toList(),
