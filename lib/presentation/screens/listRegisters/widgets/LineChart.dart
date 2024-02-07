@@ -11,7 +11,7 @@ class LineChartSample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> last10Data = data.length > 10 ? data.sublist(data.length - 10) : data;
+    List<String> last10Data = data.length >= 15 ? data.sublist(0, 15) : data;
     List<Color> gradientColors = [
       const Color(0xFF797dba),
       Color.fromARGB(255, 255, 255, 255),

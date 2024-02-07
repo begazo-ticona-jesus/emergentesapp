@@ -4,9 +4,15 @@ import 'package:flutter/material.dart';
 
 class SliderIntensity extends StatelessWidget {
   final double intensity;
+  final bool isEnabled; // Nueva propiedad
   final Function(double) onChanged;
 
-  const SliderIntensity({super.key, required this.intensity, required this.onChanged});
+  const SliderIntensity({
+    Key? key,
+    required this.intensity,
+    required this.isEnabled, // Agregar la nueva propiedad
+    required this.onChanged,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +20,7 @@ class SliderIntensity extends StatelessWidget {
       width: 350,
       height: 85,
       decoration: BoxDecoration(
+        color: isEnabled ? const Color(0xFF343764).withOpacity(0.75) : Colors.grey.withOpacity(0.5), // Deshabilitar el color cuando no está habilitado
         borderRadius: BorderRadius.circular(13.0),
       ),
       child: Column(
@@ -30,9 +37,9 @@ class SliderIntensity extends StatelessWidget {
         SliderTheme(
             data: SliderThemeData(
               trackHeight: 12.0,
-              activeTrackColor: const Color(0xFF343764),//pista activa
-              inactiveTrackColor: Colors.white,//pista inactiva
-              thumbColor: const Color(0xFF343764),//bolita
+              activeTrackColor: isEnabled ? const Color(0xFF343764) : Colors.grey, // Deshabilitar el color activo cuando no está habilitado
+              inactiveTrackColor: Colors.white, // pista inactiva
+              thumbColor: isEnabled ? const Color(0xFF343764) : Colors.grey, // Deshabilitar el color de la bolita cuando no está habilitado
               overlayColor: Colors.white.withAlpha(32),
               thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 12.0),
               overlayShape: const RoundSliderOverlayShape(overlayRadius: 24.0),
@@ -43,7 +50,7 @@ class SliderIntensity extends StatelessWidget {
               max: 1.0,
               divisions: 100,
               label: '$intensity',
-              onChanged: onChanged,
+              onChanged: isEnabled ? onChanged : null, // Deshabilitar el cambio cuando no está habilitado
             ),
           ),
         ],
