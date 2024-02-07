@@ -121,6 +121,14 @@ class _RegisterState extends State<ScreenRegister> {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: _email, password: _password);
+
+      String? displayName = userCredential.user?.displayName;
+      if (displayName != null) {
+        print('Nombre de usuario: $displayName');
+      } else {
+        print('El usuario no ha configurado un nombre de usuario.');
+      }
+
       return userCredential;
     } on FirebaseAuthException catch (e) {
       if (isValidEmail(_email)) {

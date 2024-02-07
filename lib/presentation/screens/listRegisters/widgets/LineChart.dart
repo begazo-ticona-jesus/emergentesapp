@@ -13,8 +13,8 @@ class LineChartSample extends StatelessWidget {
   Widget build(BuildContext context) {
     List<String> last10Data = data.length > 10 ? data.sublist(data.length - 10) : data;
     List<Color> gradientColors = [
-      const Color(0xFF343764),
-      const Color(0xFFa4acf4),
+      const Color(0xFF797dba),
+      Color.fromARGB(255, 255, 255, 255),
     ];
     return Padding(
       padding: const EdgeInsets.all(16.0),

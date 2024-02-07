@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../../components/Actions.dart' as MyActions;
 import '../../../components/stateActions.dart';
-import '../../../components/stateSwitched.dart'; // Asegúrate de importar el paquete de Provider
+import '../../../components/stateSwitched.dart';
 
 class CustomSwitchTheme extends StatefulWidget {
   @override

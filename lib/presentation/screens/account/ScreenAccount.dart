@@ -31,8 +31,6 @@ class _ScreenAccountState extends State<ScreenAccount> {
       _addOpeningAction();
       _openingActionAdded = true;
     }
-
-    // ... otros códigos de initState ...
   }
 
   void _addOpeningAction() {
@@ -47,17 +45,28 @@ class _ScreenAccountState extends State<ScreenAccount> {
   Widget build(BuildContext context) {
     initializeDateFormatting('es', null);
 
+    User? user = FirebaseAuth.instance.currentUser;
+    String userName = user != null ? user.displayName ?? 'Usuario' : 'Usuario';
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 70),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'Welcome, Rian',
+            'Welcome, ',
             style: TextStyle(
               fontSize: 50,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: Colors.white,
+            ),
+          ),
+          Text(
+            userName,
+            style: const TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
             ),
           ),
           const SizedBox(
