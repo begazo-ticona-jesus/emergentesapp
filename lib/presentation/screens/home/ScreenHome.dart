@@ -1,12 +1,14 @@
 // ignore_for_file: file_names, use_super_parameters, library_private_types_in_public_api
+import 'dart:convert';
 
+import 'package:emergentesapp/presentation/screens/home/widgets/CheckboxAutomatic.dart';
 import 'package:emergentesapp/presentation/screens/home/widgets/CheckboxCommon.dart';
 import 'package:emergentesapp/presentation/screens/home/widgets/SliderIntensity.dart';
 import 'package:emergentesapp/presentation/screens/home/widgets/SwitchIcon.dart';
 import 'package:emergentesapp/presentation/screens/home/widgets/SwitchTeme.dart';
 import 'package:flutter/material.dart';
+import 'package:mqtt5_client/mqtt5_server_client.dart';
 import 'package:sensors_plus/sensors_plus.dart';
-import 'package:mqtt_client/mqtt_server_client.dart';
 import '../../../domain/services/mqtt/MqttController.dart';
 
 class ScreenHome extends StatefulWidget {
@@ -19,6 +21,7 @@ class ScreenHome extends StatefulWidget {
 class _ScreenHomeState extends State<ScreenHome> {
   bool isSwitched = false;
   bool isManual = true;
+  bool isAutomatic = false;
   MqttServerClient? mqttController;
   bool isConnected = false;
   double _intensity = 0.5;
@@ -28,23 +31,22 @@ class _ScreenHomeState extends State<ScreenHome> {
   void initState() {
     super.initState();
     connect().then((value) {
-      if (value != null) {
-        setState(() {
-          mqttController = value;
-          isConnected = true;
-        });
-      }
+      setState(() {
+        mqttController = value;
+        isConnected = true;
+      });
     });
     print("sensores");
     startShakeDetection();
   }
+
 
   void startShakeDetection() {
       accelerometerEventStream().listen((AccelerometerEvent event) {
       double x = event.x;
       double y = event.y;
       double z = event.z;
-      double rango = 35;
+      double rango = 50;
       bool agitacionEnRango = (x > rango || x < -rango || y > rango || y < -rango || z > rango || z < -rango);
 
       if (!isManual && agitacionEnRango) {
@@ -52,9 +54,13 @@ class _ScreenHomeState extends State<ScreenHome> {
           isSwitched = !isSwitched;
         });
         String valor = isSwitched ? 'on' : 'off';
-        print("shake detected");
-        print("instruccion: "+valor);
-        print("intesidad: "+_intensity.toString());
+        Map<String, dynamic> jsonMessage = {
+          'comand': valor,
+          'intensity': _intensity.toString(),
+          'automatic': isAutomatic
+        };
+        String jsonString = json.encode(jsonMessage);
+        publishToTopic(mqttController!, 'in_topic', jsonString);
       }
     });
   }
@@ -103,6 +109,7 @@ class _ScreenHomeState extends State<ScreenHome> {
               SwitchIcon(
                 isSwitched: isSwitched,
                 onChanged: _changeSwitch,
+                isEnabled: !isAutomatic,
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -114,6 +121,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                       _intensity = value;
                     });
                   },
+                  isEnabled: !isAutomatic,
                 ),
               ),
               Padding(
@@ -128,17 +136,21 @@ class _ScreenHomeState extends State<ScreenHome> {
                           setState(() {
                             isManual = value!;
                           });
-                        }),
+                        },
+                        isEnabled: !isAutomatic,
+                    ),
                     ElevatedButton.icon(
-                      onPressed: isConnected && mqttController != null
-                          ? () {
-                              String valor = isSwitched?  'on' : 'off';
-                              publishToTopic(mqttController!, 'TOPIC_RONY',
-                                  valor);
-                              print("instruccion: "+valor);
-                              print("intesidad: "+_intensity.toString());
-                            }
-                          : null,
+                      onPressed: mqttController == null
+                          ? null : () {
+                              String valor = isSwitched ? 'on' : 'off';
+                              Map<String, dynamic> jsonMessage = {
+                                'comand': valor,
+                                'intensity': _intensity.toString(),
+                                'automatic': isAutomatic
+                              };
+                              String jsonString = json.encode(jsonMessage);
+                              publishToTopic(mqttController!, 'in_topic', jsonString);
+                            },
                       label: const Text(
                         'Enviar',
                         style: TextStyle(
@@ -155,6 +167,18 @@ class _ScreenHomeState extends State<ScreenHome> {
                     ),
                   ],
                 ),
+              ),
+              Padding(
+                padding:
+                  const EdgeInsets.only( top: 10),
+                child: CheckboxAutomatic(
+                isManual: isAutomatic,
+                  onChanged: (bool? value) {
+                    setState(() {
+                    isAutomatic = value!;
+                    isManual = true;
+                  });
+                }),
               ),
             ],
           ),
